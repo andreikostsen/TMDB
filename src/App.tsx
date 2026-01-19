@@ -1,18 +1,21 @@
 import "./App.css"
 import { useEffect } from "react"
 
+const API_READ_ACCESS_TOKEN = import.meta.env.VITE_API_READ_ACCESS_TOKEN
 
 const options = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MmQ4Y2MyMmMzMjA0OTEwNGZhN2E4YWYyZDc1NTA4MSIsIm5iZiI6MTc2NTk3Njk0My4yMDUsInN1YiI6IjY5NDJhYjZmY2Q4OGRiZDEwM2Q3M2E0MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Nxxqp1JNiNW2akpjuEUIjhkybf5enzcK7XHi7DHkmiI',
+    Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`,
   }
 };
 
 
 export const App = () => {
 
+  console.log(import.meta.env)
+  console.log(import.meta.env.VITE_API_READ_ACCESS_TOKEN)
 
   useEffect(() => {
 
