@@ -1,0 +1,36 @@
+.header {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1fr;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.logo {
+  min-width: 150px;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: yellow;
+}
+
+.menu a {
+  padding: 0 16px;
+  text-decoration: none;
+  position: relative;
+}
+
+/* вертикальные линии */
+.menu a:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 60%;
+  width: 1px;
+  background: black;
+}
