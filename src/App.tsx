@@ -1,34 +1,29 @@
 
 import { MainLayout } from "./layouts/MainLayout"
+import { Route, Routes } from "react-router-dom"
 import { Home } from "./pages"
 
-// const API_READ_ACCESS_TOKEN = import.meta.env.VITE_API_READ_ACCESS_TOKEN
-//
-// const options = {
-//   method: 'GET',
-//   headers: {
-//     accept: 'application/json',
-//     Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`,
-//   }
-// };
-
+const Page = ({ title }: { title: string }) => (
+  <div style={{ padding: 24 }}>
+    <h1>{title}</h1>
+  </div>
+);
 
 export const App = () => {
-  //
-  // console.log(import.meta.env)
-  // console.log(import.meta.env.VITE_API_READ_ACCESS_TOKEN)
-  //
-  // useEffect(() => {
-  //
-  //   fetch('https://api.themoviedb.org/3/authentication', options)
-  //     .then(res => res.json())
-  //     .then((res) => {console.log(res)})
-  //     .catch((err: unknown) => { console.error(err); });
-  // }, [])
+
 
 return  (
-      <MainLayout>
-        <Home />
-      </MainLayout>
+      <Routes>
+        <Route element={<MainLayout />} >
+          <Route path="/" element={<Home />} />
+          <Route path="/movies/category" element={<Page title="Movies Category" />} />
+          <Route path="/filtered-movies" element={<Page title="Filtered Movies" />} />
+          <Route path="/search" element={<Page title="Search" />} />
+          <Route path="/favorites" element={<Page title="Favorites" />} />
+        </Route>
+
+        <Route path="*" element={<Page title="Not Found" />} />
+
+      </Routes>
   )
 }

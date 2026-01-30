@@ -4,6 +4,8 @@ import { Provider } from "react-redux"
 import { App } from "./App"
 import { store } from "./app/store"
 import "./index.css"
+import { BrowserRouter } from "react-router-dom"
+import { AppThemeProvider } from "./features/theme/AppThemeProvider.tsx"
 
 const container = document.getElementById("root")
 
@@ -13,7 +15,11 @@ if (container) {
   root.render(
     <StrictMode>
       <Provider store={store}>
-        <App />
+        <BrowserRouter>
+          <AppThemeProvider>
+            <App />
+          </AppThemeProvider>
+        </BrowserRouter>
       </Provider>
     </StrictMode>,
   )

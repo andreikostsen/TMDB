@@ -34,3 +34,9 @@
   width: 1px;
   background: black;
 }
+
+@media (max-width: 768px) {
+  .menu a::after {
+    display: none;
+  }
+}
