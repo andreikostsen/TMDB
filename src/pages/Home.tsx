@@ -1,8 +1,12 @@
-import { useGetWelcomePosterQuery } from "../services/tmdbApi.ts"
+import { useGetPopularMoviesQuery, useGetWelcomePosterQuery } from "../services/tmdbApi.ts"
 import { LinearProgress, Box } from "@mui/material"
 
 export const Home = () => {
   const { data, isLoading } = useGetWelcomePosterQuery()
+
+  const { currentData } =useGetPopularMoviesQuery()
+
+  console.log(currentData)
 
   if (isLoading) return <LinearProgress />
 

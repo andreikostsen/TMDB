@@ -20,9 +20,13 @@ export const tmdbApi = createApi({
         return validMovie[Math.floor(Math.random()*validMovie.length)]
       }
     }),
+    getPopularMovies: build.query<MovieResponse, void>({
+      providesTags: ['Popular'],
+      query: ()=> `movie/popular`,
+    })
   }),
   reducerPath: "tmdbApi",
-  tagTypes: ["Welcome"],
+  tagTypes: ["Welcome", "Popular"],
 })
 
-export const {useGetWelcomePosterQuery} = tmdbApi
+export const {useGetWelcomePosterQuery, useGetPopularMoviesQuery} = tmdbApi
