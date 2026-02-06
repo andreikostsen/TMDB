@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { Movie, MovieResponse } from "./movie.types.ts"
+import type { Movie, MovieResponse } from "./movie.types.ts"
 
 const API_READ_ACCESS_TOKEN = import.meta.env.VITE_API_READ_ACCESS_TOKEN;
 
