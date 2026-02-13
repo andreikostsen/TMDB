@@ -1,5 +1,5 @@
 import { Box } from "@mui/material"
-import { Movie } from "../../../services/movie.types.ts"
+import type { Movie } from "../../../services/movie.types.ts"
 
 export const MovieSmall = ({ movie }: { movie: Movie }) => {
 

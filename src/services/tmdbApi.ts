@@ -23,10 +23,21 @@ export const tmdbApi = createApi({
     getPopularMovies: build.query<MovieResponse, void>({
       providesTags: ['Popular'],
       query: ()=> `movie/popular`,
-    })
+    }),
+    getTopRatedMovies: build.query<MovieResponse, void>({
+      query: () => "movie/top_rated",
+    }),
+
+    getUpcomingMovies: build.query<MovieResponse, void>({
+      query: () => "movie/upcoming",
+    }),
+
+    getNowPlayingMovies: build.query<MovieResponse, void>({
+      query: () => "movie/now_playing",
+    }),
   }),
   reducerPath: "tmdbApi",
   tagTypes: ["Welcome", "Popular"],
 })
 
-export const {useGetWelcomePosterQuery, useGetPopularMoviesQuery} = tmdbApi
+export const {useGetWelcomePosterQuery, useGetPopularMoviesQuery, useGetTopRatedMoviesQuery, useGetUpcomingMoviesQuery , useGetNowPlayingMoviesQuery} = tmdbApi

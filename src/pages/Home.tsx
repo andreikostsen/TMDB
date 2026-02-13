@@ -1,15 +1,19 @@
-import { useGetPopularMoviesQuery, useGetWelcomePosterQuery } from "../services/tmdbApi.ts"
+import {
+  useGetNowPlayingMoviesQuery,
+  useGetPopularMoviesQuery,
+  useGetTopRatedMoviesQuery, useGetUpcomingMoviesQuery,
+  useGetWelcomePosterQuery
+} from "../services/tmdbApi.ts"
 import { LinearProgress, Box } from "@mui/material"
-import { MovieSmall } from "../components/ui/Movie/MovieSmall.tsx"
-import { Movie } from "../services/movie.types.ts"
+import { MovieSection } from "../components/ui/MovieSection"
 
 export const Home = () => {
   const { data, isLoading } = useGetWelcomePosterQuery()
 
-  const { currentData } =useGetPopularMoviesQuery()
-
-   console.log(currentData?.results.slice(0, 5))
-  // console.log(currentData)
+  const popular =useGetPopularMoviesQuery()
+  const topRated = useGetTopRatedMoviesQuery();
+  const upcoming = useGetUpcomingMoviesQuery();
+  const nowPlaying = useGetNowPlayingMoviesQuery();
 
   if (isLoading) return <LinearProgress />
 
@@ -25,36 +29,17 @@ export const Home = () => {
       linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.6)),
       url(${imageUrl})
     `,
-        backgroundSize: "cover",      // ключевая строка
+        backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
     >
       <h1>Welcome!</h1>
     </Box>
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: {
-            xs: "repeat(2, 1fr)",
-            sm: "repeat(3, 1fr)",
-            md: "repeat(6, 1fr)",
-          },
-          gap: 2,
-          p: 3,
-          maxWidth: 1320,
-          mx: "auto",
-        }}
-      >
-                {currentData?.results.slice(0, 6).map((item: Movie) => (
-                  <Box>
-                    <MovieSmall key={item.id} movie={item} />
-                  </Box>
-                ))}
-
-      </Box>
-
-
+        <MovieSection movies={popular.data?.results ?? []} sectionTitle={"Popular Movies"} isLoading={popular.isLoading} link={"/popular-movies"} />
+        <MovieSection movies={topRated.data?.results ?? []} sectionTitle={"Top Movies"} isLoading={topRated.isLoading} link={"/popular-movies"} />
+        <MovieSection movies={upcoming.data?.results ?? []} sectionTitle={"Upcoming Movies"} isLoading={upcoming.isLoading} link={"/popular-movies"} />
+        <MovieSection movies={nowPlaying.data?.results ?? []} sectionTitle={"Now Playing Movies"} isLoading={nowPlaying.isLoading} link={"/popular-movies"} />
     </>
   )
 }
