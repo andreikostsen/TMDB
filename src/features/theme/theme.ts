@@ -47,6 +47,11 @@ export const getTheme = (mode: "light" | "dark") => {
       },
 
       divider: c.divider,
+      custom: {
+        header: c.paper2,
+        footer: c.paper2
+      }
+
     },
 
     shape: {

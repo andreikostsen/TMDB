@@ -25,7 +25,7 @@ export const Header = () => {
   return (
     <>
       <AppBar position="sticky">
-        <Container maxWidth={false} sx={{ maxWidth: 1320 }}>
+        <Container maxWidth={false} sx={{ maxWidth: 1320, bgcolor: "custom.header" }}>
           <Toolbar sx={{ minHeight: 64, px: { xs: 0, md: 1 } }}>
             {/* LEFT: logo + burger */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
