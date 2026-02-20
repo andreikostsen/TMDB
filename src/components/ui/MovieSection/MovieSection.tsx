@@ -1,6 +1,6 @@
 import { Box, Button, Skeleton, Typography } from "@mui/material"
 import { NavLink } from "react-router-dom"
-import { Movie } from "../../../services/movie.types.ts"
+import type { Movie } from "../../../services/movie.types.ts"
 import { MovieSmall } from "../Movie"
 
 
@@ -83,7 +83,6 @@ export const MovieSection = ({ movies, sectionTitle, isLoading, link }: MovieSec
         ))
 
         }
-
       </Box>
     </Box>
   )

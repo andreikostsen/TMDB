@@ -15,12 +15,13 @@ export const Home = () => {
   const upcoming = useGetUpcomingMoviesQuery();
   const nowPlaying = useGetNowPlayingMoviesQuery();
 
-  if (isLoading) return <LinearProgress />
+  if (isLoading || !data?.backdrop_path) return <LinearProgress />
 
-  const imageUrl = `https://image.tmdb.org/t/p/original${data?.backdrop_path}`
+  const imageUrl = `https://image.tmdb.org/t/p/original${data.backdrop_path}`
 
   return (
-    <>
+    <Box>
+
     <Box
       sx={{
         width: "100%",
@@ -34,12 +35,12 @@ export const Home = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <h1>Welcome!</h1>
     </Box>
-        <MovieSection movies={popular.data?.results ?? []} sectionTitle={"Popular Movies"} isLoading={popular.isLoading} link={"/popular-movies"} />
-        <MovieSection movies={topRated.data?.results ?? []} sectionTitle={"Top Movies"} isLoading={topRated.isLoading} link={"/popular-movies"} />
-        <MovieSection movies={upcoming.data?.results ?? []} sectionTitle={"Upcoming Movies"} isLoading={upcoming.isLoading} link={"/popular-movies"} />
-        <MovieSection movies={nowPlaying.data?.results ?? []} sectionTitle={"Now Playing Movies"} isLoading={nowPlaying.isLoading} link={"/popular-movies"} />
-    </>
+        <MovieSection movies={popular.data?.results ?? []} sectionTitle={"Popular Movies"} isLoading={popular.isLoading} link={"movies/popular"} />
+        <MovieSection movies={topRated.data?.results ?? []} sectionTitle={"Top Movies"} isLoading={topRated.isLoading} link={"movies/top"} />
+        <MovieSection movies={upcoming.data?.results ?? []} sectionTitle={"Upcoming Movies"} isLoading={upcoming.isLoading} link={"movies/upcoming"} />
+        <MovieSection movies={nowPlaying.data?.results ?? []} sectionTitle={"Now Playing Movies"} isLoading={nowPlaying.isLoading} link={"movies/now"} />
+
+    </Box>
   )
 }
