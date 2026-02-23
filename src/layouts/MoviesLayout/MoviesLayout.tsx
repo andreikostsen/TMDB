@@ -47,15 +47,15 @@ export const MoviesLayout = () => {
           <Box
             sx={{ display: "flex", justifyContent: "center", height: 32, my: 4, gap: 2 }}
           >
-              <Button component={NavButton} to={"./movies"} sx={navButtonSx}>
+              <Button component={NavButton} to={"popular"} sx={navButtonSx}>
                 Popular Movies</Button>
-              <Button component={NavButton} to={"./movies/top-rated"}  sx={navButtonSx}>
+              <Button component={NavButton} to={"top"}  sx={navButtonSx}>
                 Top Rated Movies
               </Button>
-              <Button component={NavButton} to={"./movies/upcoming"}  sx={navButtonSx}>
+              <Button component={NavButton} to={"upcoming"}  sx={navButtonSx}>
                 Upcoming Movies
               </Button>
-              <Button component={NavButton} to={"./movies/now-playing"}  sx={navButtonSx}>
+              <Button component={NavButton} to={"now"}  sx={navButtonSx}>
                 Now Playing Movies
               </Button>
 

@@ -1,6 +1,6 @@
 
 import { MainLayout } from "./layouts/MainLayout"
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import { Home } from "./pages"
 import { PopularMovies } from "./pages/PopularMovies.tsx"
 import { MoviesLayout } from "./layouts/MoviesLayout/MoviesLayout.tsx"
@@ -28,11 +28,12 @@ return  (
           <Route path="/favorites" element={<Page title="Favorites" />} />
         </Route>
 
-        <Route element={<MoviesLayout /> } >
-          <Route path="/movies" element={<PopularMovies />} />
-          <Route path="/movies/top-rated" element={<TopRatedMovies />} />
-          <Route path="/movies/upcoming" element={<UpcomingMovies />} />
-          <Route path="/movies/now-playing" element={<NowPlayingMovies />} />
+        <Route path={"/movies"} element={<MoviesLayout /> } >
+          <Route index element={<Navigate to="popular" replace />} />
+          <Route path="popular" element={<PopularMovies />} />
+          <Route path="top" element={<TopRatedMovies />} />
+          <Route path="upcoming" element={<UpcomingMovies />} />
+          <Route path="now" element={<NowPlayingMovies />} />
         </Route>
 
 
