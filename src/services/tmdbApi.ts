@@ -20,9 +20,9 @@ export const tmdbApi = createApi({
         return validMovie[Math.floor(Math.random()*validMovie.length)]
       }
     }),
-    getPopularMovies: build.query<MovieResponse, void>({
+    getPopularMovies: build.query<MovieResponse, string>({
       providesTags: ['Popular'],
-      query: ()=> `movie/popular`,
+      query: (pageNumber)=> `movie/popular?page=${pageNumber}`,
     }),
     getTopRatedMovies: build.query<MovieResponse, void>({
       query: () => "movie/top_rated",
