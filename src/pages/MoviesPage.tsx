@@ -2,11 +2,14 @@ import { Box, Pagination, Typography } from "@mui/material"
 import { useGetPopularMoviesQuery } from "../services/tmdbApi.ts"
 import { MovieSmall } from "../components/ui/Movie"
 import type { Movie } from "../services/movie.types.ts"
-import { useSearchParams } from "react-router-dom"
+import { useParams, useSearchParams } from "react-router-dom"
 
-export const PopularMovies = () => {
+export const MoviesPage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams()
+  const { category } = useParams()
+
+  console.log(category)
 
   const page = Number(searchParams.get('page')) || 1
 

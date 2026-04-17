@@ -7,6 +7,7 @@ import { MoviesLayout } from "./layouts/MoviesLayout/MoviesLayout.tsx"
 import { TopRatedMovies } from "./pages/TopRatedMovies.tsx"
 import { UpcomingMovies } from "./pages/UpcomingMovies.tsx"
 import { NowPlayingMovies } from "./pages/NowPlayingMovies.tsx"
+import { MoviesPage } from "./pages/MoviesPage.tsx"
 
 const Page = ({ title }: { title: string }) => (
   <div style={{ padding: 24 }}>
@@ -25,15 +26,16 @@ return  (
           <Route path="/" element={<Home />} />
           <Route path="/filtered-movies" element={<Page title="Filtered Movies" />} />
           <Route path="/search" element={<Page title="Search" />} />
-          <Route path="/favorites" element={<Page title="Favorites" />} />
+          <Route path="/favorites" element={<Page title="Fav orites" />} />
         </Route>
 
         <Route path={"/movies"} element={<MoviesLayout /> } >
           <Route index element={<Navigate to="popular" replace />} />
-          <Route path="popular" element={<PopularMovies />} />
-          <Route path="top" element={<TopRatedMovies />} />
-          <Route path="upcoming" element={<UpcomingMovies />} />
-          <Route path="now" element={<NowPlayingMovies />} />
+          <Route path="/movies/:category" element={<MoviesPage />} />
+          {/*<Route path="popular" element={<PopularMovies />} />*/}
+          {/*<Route path="top" element={<TopRatedMovies />} />*/}
+          {/*<Route path="upcoming" element={<UpcomingMovies />} />*/}
+          {/*<Route path="now" element={<NowPlayingMovies />} />*/}
         </Route>
 
 

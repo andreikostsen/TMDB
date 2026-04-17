@@ -10,7 +10,7 @@ import { MovieSection } from "../components/ui/MovieSection"
 export const Home = () => {
   const { data, isLoading } = useGetWelcomePosterQuery()
 
-  const popular =useGetPopularMoviesQuery()
+  const popular =useGetPopularMoviesQuery("1")
   const topRated = useGetTopRatedMoviesQuery();
   const upcoming = useGetUpcomingMoviesQuery();
   const nowPlaying = useGetNowPlayingMoviesQuery();
