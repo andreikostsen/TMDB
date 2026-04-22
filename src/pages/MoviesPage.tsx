@@ -1,5 +1,5 @@
 import { Box, Pagination, Typography } from "@mui/material"
-import { useGetPopularMoviesQuery } from "../services/tmdbApi.ts"
+import { useGetMoviesByCategoryQuery } from "../services/tmdbApi.ts"
 import { MovieSmall } from "../components/ui/Movie"
 import type { Movie } from "../services/movie.types.ts"
 import { useParams, useSearchParams } from "react-router-dom"
@@ -7,13 +7,13 @@ import { useParams, useSearchParams } from "react-router-dom"
 export const MoviesPage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams()
-  const { category } = useParams()
-
-  console.log(category)
+  const { category = "popular" } = useParams()
 
   const page = Number(searchParams.get('page')) || 1
 
-  const popularMovies = useGetPopularMoviesQuery(String(page))
+
+  const current = useGetMoviesByCategoryQuery({category, page})
+
 
   const onChangeHandler = (
     _event: React.ChangeEvent<unknown>,
@@ -22,9 +22,16 @@ export const MoviesPage = () => {
     setSearchParams({page: String(value)})
   }
 
+  const titles = {
+    popular: "Popular Movies",
+    top_rated: "Top Rated Movies",
+    upcoming: "Upcoming Movies",
+    now_playing: "Now Playing Movies",
+  }
+
   return (
     <Box>
-      <Typography variant={"h2"}>Popular Movies</Typography>
+      <Typography variant={"h2"}>{titles[category]}</Typography>
       <Box
         sx={{
           display: "grid",
@@ -39,7 +46,7 @@ export const MoviesPage = () => {
           mx: "auto",
         }}
       >
-        {popularMovies.data?.results.map((item: Movie) => (
+        {current.data?.results.map((item: Movie) => (
           <Box key={item.id}>
             <MovieSmall  movie={item} />
           </Box>

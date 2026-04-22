@@ -94,13 +94,13 @@ export const MoviesLayout = () => {
           >
               <Button component={NavButton} to={"popular"} sx={navButtonSx}>
                 Popular Movies</Button>
-              <Button component={NavButton} to={"top"}  sx={navButtonSx}>
+              <Button component={NavButton} to={"top_rated"}  sx={navButtonSx}>
                 Top Rated Movies
               </Button>
               <Button component={NavButton} to={"upcoming"}  sx={navButtonSx}>
                 Upcoming Movies
               </Button>
-              <Button component={NavButton} to={"now"}  sx={navButtonSx}>
+              <Button component={NavButton} to={"now_playing"}  sx={navButtonSx}>
                 Now Playing Movies
               </Button>
 
