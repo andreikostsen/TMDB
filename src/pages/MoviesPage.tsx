@@ -4,13 +4,15 @@ import { MovieSmall } from "../components/ui/Movie"
 import type { Movie } from "../services/movie.types.ts"
 import { useParams, useSearchParams } from "react-router-dom"
 
+
 export const MoviesPage = () => {
+
+  type Category = "popular" | "top_rated" | "upcoming" | "now_playing"
 
   const [searchParams, setSearchParams] = useSearchParams()
   const { category = "popular" } = useParams()
 
   const page = Number(searchParams.get('page')) || 1
-
 
   const current = useGetMoviesByCategoryQuery({category, page})
 
@@ -29,9 +31,11 @@ export const MoviesPage = () => {
     now_playing: "Now Playing Movies",
   }
 
+  const safeCategory: Category = category in titles ? category as Category : "popular"
+
   return (
     <Box>
-      <Typography variant={"h2"}>{titles[category]}</Typography>
+      <Typography variant={"h2"}>{titles[safeCategory]}</Typography>
       <Box
         sx={{
           display: "grid",
@@ -54,7 +58,7 @@ export const MoviesPage = () => {
 
       </Box>
       <Box sx={{display: "flex", justifyContent: "center", my: 6}}>
-        <Pagination count={10} color="primary"  page={page} onChange={onChangeHandler} />
+        <Pagination count={10} color="primary" page={page} onChange={onChangeHandler} />
       </Box>
     </Box>
   )
