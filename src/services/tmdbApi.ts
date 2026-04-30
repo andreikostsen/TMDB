@@ -3,6 +3,9 @@ import type { Movie, MovieResponse } from "./movie.types.ts"
 
 const API_READ_ACCESS_TOKEN = import.meta.env.VITE_API_READ_ACCESS_TOKEN;
 
+export type Category = "popular" | "top_rated" | "upcoming" | "now_playing"
+
+
 export const tmdbApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://api.themoviedb.org/3/",
@@ -12,7 +15,7 @@ export const tmdbApi = createApi({
     },
   }),
   endpoints: build => ({
-    getWelcomePoster: build.query<Movie, void>({
+    getWelcomePoster: build.query<Movie, null>({
       query: () => `movie/popular`,
 
       transformResponse: (res: MovieResponse) => {
@@ -20,25 +23,10 @@ export const tmdbApi = createApi({
         return validMovie[Math.floor(Math.random() * validMovie.length)]
       },
     }),
-    getPopularMovies: build.query<MovieResponse, string>({
-      providesTags: ["Popular"],
-      query: pageNumber => `movie/popular?page=${pageNumber}`,
-    }),
-    getTopRatedMovies: build.query<MovieResponse, string>({
-      query: pageNumber => `movie/top_rated?page=${pageNumber}`,
-    }),
-
-    getUpcomingMovies: build.query<MovieResponse, string>({
-      query: pageNumber => `movie/upcoming?page=${pageNumber}`,
-    }),
-
-    getNowPlayingMovies: build.query<MovieResponse, string>({
-      query: pageNumber => `movie/now_playing?page=${pageNumber}`,
-    }),
 
     getMoviesByCategory: build.query<MovieResponse,
-      { category: string, page: number }>({
-      query: ({category, page}) => ({
+      { category: Category, page?: number }>({
+      query: ({category, page = 1}) => ({
         url: `movie/${category}`,
         params: {
           page,
@@ -50,4 +38,4 @@ export const tmdbApi = createApi({
   tagTypes: ["Welcome", "Popular"],
 })
 
-export const {useGetWelcomePosterQuery, useGetPopularMoviesQuery, useGetTopRatedMoviesQuery, useGetUpcomingMoviesQuery , useGetNowPlayingMoviesQuery, useGetMoviesByCategoryQuery} = tmdbApi
+export const {useGetWelcomePosterQuery, useGetMoviesByCategoryQuery} = tmdbApi

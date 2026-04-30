@@ -1,4 +1,5 @@
 import { Box, Pagination, Typography } from "@mui/material"
+import type { Category} from "../services/tmdbApi.ts";
 import { useGetMoviesByCategoryQuery } from "../services/tmdbApi.ts"
 import { MovieSmall } from "../components/ui/Movie"
 import type { Movie } from "../services/movie.types.ts"
@@ -7,10 +8,8 @@ import { useParams, useSearchParams } from "react-router-dom"
 
 export const MoviesPage = () => {
 
-  type Category = "popular" | "top_rated" | "upcoming" | "now_playing"
-
   const [searchParams, setSearchParams] = useSearchParams()
-  const { category = "popular" } = useParams()
+  const { category = "popular" } = useParams<{category?: Category}>()
 
   const page = Number(searchParams.get('page')) || 1
 
@@ -31,7 +30,7 @@ export const MoviesPage = () => {
     now_playing: "Now Playing Movies",
   }
 
-  const safeCategory: Category = category in titles ? category as Category : "popular"
+  const safeCategory: Category = category in titles ? category : "popular"
 
   return (
     <Box>

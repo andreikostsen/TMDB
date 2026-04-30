@@ -1,19 +1,19 @@
 import {
-  useGetNowPlayingMoviesQuery,
-  useGetPopularMoviesQuery,
-  useGetTopRatedMoviesQuery, useGetUpcomingMoviesQuery,
+  useGetMoviesByCategoryQuery,
   useGetWelcomePosterQuery
 } from "../services/tmdbApi.ts"
 import { LinearProgress, Box } from "@mui/material"
 import { MovieSection } from "../components/ui/MovieSection"
 
 export const Home = () => {
-  const { data, isLoading } = useGetWelcomePosterQuery()
+  const { data, isLoading } = useGetWelcomePosterQuery(null)
 
-  const popular =useGetPopularMoviesQuery("1")
-  const topRated = useGetTopRatedMoviesQuery();
-  const upcoming = useGetUpcomingMoviesQuery();
-  const nowPlaying = useGetNowPlayingMoviesQuery();
+  const popular =useGetMoviesByCategoryQuery({category: "popular"});
+  const topRated = useGetMoviesByCategoryQuery({category: "top_rated"});
+  const upcoming = useGetMoviesByCategoryQuery({category: "upcoming"});
+  const nowPlaying = useGetMoviesByCategoryQuery({category: "now_playing"});
+
+
 
   if (isLoading || !data?.backdrop_path) return <LinearProgress />
 
@@ -37,9 +37,9 @@ export const Home = () => {
     >
     </Box>
         <MovieSection movies={popular.data?.results ?? []} sectionTitle={"Popular Movies"} isLoading={popular.isLoading} link={"movies/popular"} />
-        <MovieSection movies={topRated.data?.results ?? []} sectionTitle={"Top Movies"} isLoading={topRated.isLoading} link={"movies/top"} />
+        <MovieSection movies={topRated.data?.results ?? []} sectionTitle={"Top Movies"} isLoading={topRated.isLoading} link={"movies/top_rated"} />
         <MovieSection movies={upcoming.data?.results ?? []} sectionTitle={"Upcoming Movies"} isLoading={upcoming.isLoading} link={"movies/upcoming"} />
-        <MovieSection movies={nowPlaying.data?.results ?? []} sectionTitle={"Now Playing Movies"} isLoading={nowPlaying.isLoading} link={"movies/now"} />
+        <MovieSection movies={nowPlaying.data?.results ?? []} sectionTitle={"Now Playing Movies"} isLoading={nowPlaying.isLoading} link={"movies/now_playing"} />
 
     </Box>
   )
