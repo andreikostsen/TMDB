@@ -1,3 +1,5 @@
+import type {
+  Category} from "../services/tmdbApi.ts";
 import {
   useGetMoviesByCategoryQuery,
   useGetWelcomePosterQuery
@@ -5,14 +7,23 @@ import {
 import { LinearProgress, Box } from "@mui/material"
 import { MovieSection } from "../components/ui/MovieSection"
 
+
 export const Home = () => {
   const { data, isLoading } = useGetWelcomePosterQuery(null)
 
-  const popular =useGetMoviesByCategoryQuery({category: "popular"});
-  const topRated = useGetMoviesByCategoryQuery({category: "top_rated"});
-  const upcoming = useGetMoviesByCategoryQuery({category: "upcoming"});
-  const nowPlaying = useGetMoviesByCategoryQuery({category: "now_playing"});
+ const queries = {
+   popular: useGetMoviesByCategoryQuery({category: "popular"}),
+   top_rated: useGetMoviesByCategoryQuery({category: "top_rated"}),
+   upcoming: useGetMoviesByCategoryQuery({category: "upcoming"}),
+   now_playing: useGetMoviesByCategoryQuery({category: "now_playing"}),
+ }
 
+  const mainPageSections: {sectionTitle: string, category: Category}[] = [
+    {sectionTitle: "Popular Movies", category: "popular"},
+    {sectionTitle: "Top Rated Movies", category: "top_rated"},
+    {sectionTitle: "Upcoming Movies", category: "upcoming"},
+    {sectionTitle: "Now Playing Movies", category: "now_playing"},
+  ]
 
 
   if (isLoading || !data?.backdrop_path) return <LinearProgress />
@@ -36,11 +47,15 @@ export const Home = () => {
       }}
     >
     </Box>
-        <MovieSection movies={popular.data?.results ?? []} sectionTitle={"Popular Movies"} isLoading={popular.isLoading} link={"movies/popular"} />
-        <MovieSection movies={topRated.data?.results ?? []} sectionTitle={"Top Movies"} isLoading={topRated.isLoading} link={"movies/top_rated"} />
-        <MovieSection movies={upcoming.data?.results ?? []} sectionTitle={"Upcoming Movies"} isLoading={upcoming.isLoading} link={"movies/upcoming"} />
-        <MovieSection movies={nowPlaying.data?.results ?? []} sectionTitle={"Now Playing Movies"} isLoading={nowPlaying.isLoading} link={"movies/now_playing"} />
 
+      {mainPageSections.map(({sectionTitle, category}) => {
+         const current = queries[category]
+          return (
+            <MovieSection movies={current.data?.results ?? []} sectionTitle={sectionTitle} isLoading={current.isLoading} link={`movies/${category}`} key={category}/>
+          )
+        }
+      )
+      }
     </Box>
   )
 }
